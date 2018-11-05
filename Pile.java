@@ -232,30 +232,38 @@ public class Pile implements CardListInterface {
     	return (c.getRank() + ", " + c.getSuit());
     }
     
-    public boolean hasPair(Card c) {
+    public boolean hasRank(Card c) {
+    	return (!askedFor(c).equal(null));
+    }
+    
+    public Card askedFor(Card c) {
     	Card[] cArray = toArray();
     	for(int i = 0; i < cArray.length; i++) {
     		if(c.sameRank(cArray[i])) {
-    			return true;
+    			return cArray[i];
     		}
     	}
-    	return false;
+    	return null;
     }
     
-    public void removePair(Card c) {
-    	if(hasPair(c)) {
+    //returns removed card that it's given
+    public Card removePair(Card c) {
+    	Card r = null;;
+    	if(hasRank(c)) {
     		Card[] cArray = toArray();
         	for(int i = 0; i < cArray.length; i++) {
         		if(c.sameRank(cArray[i])) {
-        			remove(cArray[i]);
+        			r = cArray[i];
+        			remove(r);
         			remove(c);
         			break;
         		}
         	}
     	}
+    	return r;
     }
     
-    public void removePairs() {
+    /*public void removePairs() {
     	Card[] cArray = toArray();
     	for(int i = 0; i < cArray.length; i++) {
     		for(int j = 0; j < cArray.length; j++) {
@@ -264,5 +272,5 @@ public class Pile implements CardListInterface {
     			}
     		}
     	}
-    }
+    }*/
 }
