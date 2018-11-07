@@ -148,9 +148,15 @@ public class Pile implements CardListInterface {
     }
 
     public boolean remove (Card anEntry) {
-    	boolean ans = pile.remove(anEntry);
-    	numberOfEntries--;
-    	return ans;
+    	for(int i = 0; i < pile.getLength(); i++) {
+    		Card c = pile.getEntry(i);
+    		if(anEntry.equals(c)) {
+    			pile.remove(i);
+    			numberOfEntries--;
+    			return true;
+    		}
+    	}
+    	return false;
     }
 
     public void clear() {

@@ -25,7 +25,7 @@ public class GoFish {
 	//returns user's hand
 	public Pile setUp() {
 		deck.createDeck();
-		int n = (int) (Math.random()* 100) + 3;
+		int n = (int) (Math.random()* 100) + 37;
 		deck.shuffle(n);
 		for(int i = 0; i < 15; i++) {
 			Card r = deck.remove();
@@ -49,8 +49,8 @@ public class GoFish {
     				yourPairs.add(c.getEntry(i));
     				r = yourHand.removePair(c.getEntry(i));
     				yourPairs.add(r);
-    				c.remove(c.getEntry(i));
     				c.remove(c.getEntry(j));
+    				c.remove(c.getEntry(i));
     				add++;
     			}
     		}
@@ -61,16 +61,18 @@ public class GoFish {
 	}
 	
 	public void checkForPairsOpponent() {
-		Card[] c = yourHand.toArray();
+		Pile c = opponentHand.copyPile();
 		Card r = null;
 		int add = 0;
-		for(int i = 0; i < c.length; i++) {
-    		for(int j = 0; j < c.length; j++) {
-    			if(i != j && c[i].sameRank(c[j])) {
-    				add++;
-    				opponentPairs.add(c[i]);
-    				r = opponentHand.removePair(c[i]);
+		for(int i = 0; i < c.getLength(); i++) {
+    		for(int j = 0; j < c.getLength(); j++) {
+    			if(i != j && c.getEntry(i).sameRank(c.getEntry(j))) {
+    				opponentPairs.add(c.getEntry(i));
+    				r = opponentHand.removePair(c.getEntry(i));
     				opponentPairs.add(r);
+    				c.remove(c.getEntry(j));
+    				c.remove(c.getEntry(i));
+    				add++;
     			}
     		}
     	}
@@ -81,6 +83,7 @@ public class GoFish {
 		if(opponentHand.hasRank(inhand)) {
 			System.out.println("Your opponent has a(n) " + inhand.getRank());
 			userAddPair(inhand);
+			System.out.println("You had 1 pair added. Now you have a total of " + yourPairs.getLength()/2 + " pairs.");
 			System.out.println("\nYour current hand: " );
 			yourHand.printList();
 			return true;
