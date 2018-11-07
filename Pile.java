@@ -57,6 +57,7 @@ public class Pile implements CardListInterface {
     }
     
     public void shuffle(int numShuffled) {
+    	//alternate
     	if(numShuffled <= 0) {
     		throw new IndexOutOfBoundsException();
     	}
@@ -64,33 +65,31 @@ public class Pile implements CardListInterface {
     	for(int i = 0; i < numShuffled + 1; i++) {
     		for(int j = 0; j < halfed; j++) {
     			Card curr = getEntry(j);
-    			Card replaced  = replace(numberOfEntries - 1 - j, curr);
-    			replace(i, replaced);
-    		}
-    		
-    		int r = (int) (Math.random()* 50);
-    		int k = 0;
-    		while(k < r) {
-    			int ran1 = (int) (Math.random()* numberOfEntries);
-    			int ran2 = (int) (Math.random()* numberOfEntries);
-    			
-    			if(ran1 == ran2) {
-    				ran1 = (int) (Math.random()* numberOfEntries);
-        			ran2 = (int) (Math.random()* numberOfEntries);
-    			}
-    			
-    			else {
-    				Card curr = getEntry(ran1);
-        			Card replaced  = replace(ran2, curr);
-        			replace(ran1, replaced);
-        			k++;
-    			}
+    			Card replaced  = replace(numberOfEntries- 1 - j, curr);
+    			replace(j, replaced);
     		}
     	}
+    		
+    	// crazy shuffling
+    	int r = (int) (Math.random()* 500);
+    	int k = 0;
+    	while(k < r) {
+    		int ran1 = (int) (Math.random()* numberOfEntries);
+    		int ran2 = (int) (Math.random()* numberOfEntries);
+    			
+    		while(ran1 == ran2) {
+    			ran1 = (int) (Math.random()* numberOfEntries);
+        		ran2 = (int) (Math.random()* numberOfEntries);
+    		}
+    			
+    		Card curr = getEntry(ran1);
+        	Card replaced  = replace(ran2, curr);
+        	replace(ran1, replaced);
+        	k++;
+   		}
+   	}
     	
-    }
     
-    //what is union??
     public void union(Pile other) {
     	Card[] otherArray = other.toArray();
     	for(int i = 0; i < otherArray.length; i++) {
@@ -191,7 +190,13 @@ public class Pile implements CardListInterface {
    /* @return true if the pile contains anEntry; false if not.
    */
     public boolean contains (Card anEntry) {
-    	return pile.contains(anEntry);
+    	for(int i = 0; i < pile.getLength(); i++) {
+    		Card c = pile.getEntry(i);
+    		if(anEntry.equals(c)) {
+    			return true;
+    		}
+    	}
+    	return false;
     }
     
     /**
@@ -233,7 +238,7 @@ public class Pile implements CardListInterface {
     }
     
     public boolean hasRank(Card c) {
-    	return (!askedFor(c).equal(null));
+    	return (askedFor(c) != null);
     }
     
     public Card askedFor(Card c) {
@@ -248,7 +253,7 @@ public class Pile implements CardListInterface {
     
     //returns removed card that it's given
     public Card removePair(Card c) {
-    	Card r = null;;
+    	Card r = null;
     	if(hasRank(c)) {
     		Card[] cArray = toArray();
         	for(int i = 0; i < cArray.length; i++) {

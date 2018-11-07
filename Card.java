@@ -26,7 +26,7 @@ public class Card {
 		rank = r;
 	}
 	
-	public boolean equal(Card c) {
+	public boolean equals(Card c) {
 		return (c.getRank().equals(rank) && c.getSuit().equals(suit));
 	}
 	
