@@ -76,11 +76,14 @@ public class UserInterface {
 					//user's turn
 					boolean turn = true;
 					while(turn) {
-						newGame.userAsk(c);
+						turn = newGame.userAsk(c);
 					}
 					
 					//opponent's turn
-					newGame.opponentAsk();
+					turn = true;
+					while(turn) {
+						turn = newGame.opponentAsk();
+					}
 				}
 				
 			}

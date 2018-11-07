@@ -40,16 +40,18 @@ public class GoFish {
 	}
 	
 	public void checkForPairsUser() {
-		Card[] c = yourHand.toArray();
+		Pile c = yourHand.copyPile();
 		Card r = null;
 		int add = 0;
-		for(int i = 0; i < c.length; i++) {
-    		for(int j = 0; j < c.length; j++) {
-    			if(i != j && c[i].sameRank(c[j])) {
-    				add++;
-    				yourPairs.add(c[i]);
-    				r = yourHand.removePair(c[i]);
+		for(int i = 0; i < c.getLength(); i++) {
+    		for(int j = 0; j < c.getLength(); j++) {
+    			if(i != j && c.getEntry(i).sameRank(c.getEntry(j))) {
+    				yourPairs.add(c.getEntry(i));
+    				r = yourHand.removePair(c.getEntry(i));
     				yourPairs.add(r);
+    				c.remove(c.getEntry(i));
+    				c.remove(c.getEntry(j));
+    				add++;
     			}
     		}
     	}

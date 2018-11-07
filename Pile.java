@@ -106,6 +106,16 @@ public class Pile implements CardListInterface {
       numberOfEntries++;
     }
     
+    public Pile copyPile() {
+    	Card[] c = toArray();
+    	Pile copy = new Pile();
+    	
+    	for(int i = 0; i < c.length; i++) {
+    		copy.add(c[i]);
+    	}
+    	return copy;
+    }
+    
     public DoublyLinkedList<Card> copy() {
     	DoublyLinkedList <Card> copy = new DoublyLinkedList<Card>();
     	@SuppressWarnings("rawtypes")
@@ -257,7 +267,7 @@ public class Pile implements CardListInterface {
     	if(hasRank(c)) {
     		Card[] cArray = toArray();
         	for(int i = 0; i < cArray.length; i++) {
-        		if(c.sameRank(cArray[i])) {
+        		if(c.sameRank(cArray[i]) && !c.equals(cArray[i])) {
         			r = cArray[i];
         			remove(r);
         			remove(c);
