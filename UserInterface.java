@@ -68,10 +68,14 @@ public class UserInterface {
 						turn = newGame.opponentAsk();
 						if(newGame.getYourHand().getLength() == 0 || newGame.getOpponentHand().getLength() == 0) {
 							if(newGame.getYourHand().getLength() == 0) {
-								newGame.getYourHand().deal();
+								for(int i = 0; i < 8 && newGame.getDeck().getLength() != 0; i++) {
+									newGame.getYourHand().remove();
+								}
 							}
 							if(newGame.getOpponentHand().getLength() == 0) {
-								newGame.getOpponentHand().deal();
+								for(int i = 0; i < 8 && newGame.getDeck().getLength() != 0; i++) {
+									newGame.getOpponentHand().remove();
+								}
 							}
 						}
 					}
@@ -106,10 +110,14 @@ public class UserInterface {
 					turn = newGame.opponentAsk();
 					if(newGame.getYourHand().getLength() == 0 || newGame.getOpponentHand().getLength() == 0) {
 						if(newGame.getYourHand().getLength() == 0) {
-							newGame.getYourHand().deal();
+							for(int i = 0; i < 8 && newGame.getDeck().getLength() != 0; i++) {
+								newGame.getYourHand().remove();
+							}
 						}
 						if(newGame.getOpponentHand().getLength() == 0) {
-							newGame.getOpponentHand().deal();
+							for(int i = 0; i < 8 && newGame.getDeck().getLength() != 0; i++) {
+								newGame.getOpponentHand().remove();
+							}
 						}
 					}
 				}
