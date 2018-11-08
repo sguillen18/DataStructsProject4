@@ -17,6 +17,13 @@ public class GoFish {
 	public Pile getOpponentHand() {
 		return opponentHand;
 	}
+	public Pile getYourPairs() {
+		return yourPairs;
+	}
+	
+	public Pile getOpponentPairs() {
+		return opponentPairs;
+	}
 	
 	public Pile getDeck() {
 		return deck;

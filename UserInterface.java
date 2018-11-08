@@ -7,7 +7,11 @@ public class UserInterface {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("How to Play Go Fish(You VS Computer: \n"
-				+ "You and your opponent will be given seven cards each.");
+				+ "After you enter in 'y' for yes, you and your opponent will be given seven cards each. \n"
+				+ "You will go first by entering a rank (ace, two, three, etc.) and a suit (hearts, club, spade, etc.). \n"
+				+ "If the computer does not have the card, the computer will ask for a card and update whether or not you have the card. \n"
+				+ "Else, you will keep asking the computer for cards until the computer doesn't have any or until you have no cards. \n"
+				+ "The game will continue until all pairs are made.");
 		System.out.println("Do you want to play GoFish? y/n");
 		String ans = sc.next();
 		
@@ -69,12 +73,14 @@ public class UserInterface {
 						if(newGame.getYourHand().getLength() == 0 || newGame.getOpponentHand().getLength() == 0) {
 							if(newGame.getYourHand().getLength() == 0) {
 								for(int i = 0; i < 8 && newGame.getDeck().getLength() != 0; i++) {
-									newGame.getYourHand().remove();
+									Card r = newGame.getDeck().remove();
+									newGame.getYourHand().add(r);
 								}
 							}
 							if(newGame.getOpponentHand().getLength() == 0) {
 								for(int i = 0; i < 8 && newGame.getDeck().getLength() != 0; i++) {
-									newGame.getOpponentHand().remove();
+									Card r = newGame.getDeck().remove();
+									newGame.getOpponentHand().add(r);
 								}
 							}
 						}
@@ -111,12 +117,14 @@ public class UserInterface {
 					if(newGame.getYourHand().getLength() == 0 || newGame.getOpponentHand().getLength() == 0) {
 						if(newGame.getYourHand().getLength() == 0) {
 							for(int i = 0; i < 8 && newGame.getDeck().getLength() != 0; i++) {
-								newGame.getYourHand().remove();
+								Card r = newGame.getDeck().remove();
+								newGame.getYourHand().add(r);
 							}
 						}
 						if(newGame.getOpponentHand().getLength() == 0) {
 							for(int i = 0; i < 8 && newGame.getDeck().getLength() != 0; i++) {
-								newGame.getOpponentHand().remove();
+								Card r = newGame.getDeck().remove();
+								newGame.getOpponentHand().add(r);
 							}
 						}
 					}
@@ -124,8 +132,17 @@ public class UserInterface {
 			}
 			
 			//ending game
+			if((newGame.getOpponentPairs().getLength()/2) > (newGame.getYourPairs().getLength()/2)){
+				System.out.println("Your opponent has won the game!");
+			}
+			if((newGame.getOpponentPairs().getLength()/2) < (newGame.getYourPairs().getLength()/2)){
+				System.out.println("You have won the game!");
+			}
+			System.out.println("Do you want to play GoFish again? y/n");
+			ans = sc.next();
 			
 		}
+		
 		
 		sc.close();
 
