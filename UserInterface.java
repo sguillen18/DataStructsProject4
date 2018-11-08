@@ -44,7 +44,7 @@ public class UserInterface {
 					//user's turn
 					boolean userTurn = true;
 					Card c = null;
-					while(userTurn) {
+					while(userTurn && newGame.getYourHand().getLength() != 0) {
 						c = null;
 						while(c == null) {
 							System.out.println("Choose a card to ask for.. ");
@@ -64,8 +64,16 @@ public class UserInterface {
 					
 					//opponent's turn
 					boolean turn = true;
-					while(turn) {
+					while(turn && newGame.getYourHand().getLength() != 0 && newGame.getOpponentHand().getLength() != 0) {
 						turn = newGame.opponentAsk();
+						if(newGame.getYourHand().getLength() == 0 || newGame.getOpponentHand().getLength() == 0) {
+							if(newGame.getYourHand().getLength() == 0) {
+								newGame.getYourHand().deal();
+							}
+							if(newGame.getOpponentHand().getLength() == 0) {
+								newGame.getOpponentHand().deal();
+							}
+						}
 					}
 				}
 				
@@ -94,8 +102,16 @@ public class UserInterface {
 					
 				//opponent's turn
 				boolean turn = true;
-				while(turn && newGame.getYourHand().getLength() != 0) {
+				while(turn && newGame.getYourHand().getLength() != 0 && newGame.getOpponentHand().getLength() != 0) {
 					turn = newGame.opponentAsk();
+					if(newGame.getYourHand().getLength() == 0 || newGame.getOpponentHand().getLength() == 0) {
+						if(newGame.getYourHand().getLength() == 0) {
+							newGame.getYourHand().deal();
+						}
+						if(newGame.getOpponentHand().getLength() == 0) {
+							newGame.getOpponentHand().deal();
+						}
+					}
 				}
 			}
 			
