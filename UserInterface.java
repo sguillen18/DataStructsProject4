@@ -138,6 +138,9 @@ public class UserInterface {
 			if((newGame.getOpponentPairs().getLength()/2) < (newGame.getYourPairs().getLength()/2)){
 				System.out.println("You have won the game!");
 			}
+			if((newGame.getOpponentPairs().getLength()/2) < (newGame.getYourPairs().getLength()/2)) {
+				System.out.println("It is a tie!");
+			}
 			System.out.println("Do you want to play GoFish again? y/n");
 			ans = sc.next();
 			
