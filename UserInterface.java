@@ -31,7 +31,7 @@ public class UserInterface {
 				}
 				
 				//if opponent hand empty
-				else if(newGame.getOpponentHand().getLength() == 0) {
+				if(newGame.getOpponentHand().getLength() == 0) {
 					for(int z = 0; (z < 8) && newGame.getDeck().getLength() != 0; z++) {
 						Card c = newGame.getDeck().remove();
 						newGame.getOpponentHand().add(c);
@@ -41,46 +41,29 @@ public class UserInterface {
 				
 				//user goes first
 				else {
-					boolean has = false;
-					Card c = null;
-					while(!has) {
-						System.out.println("Choose a card to ask for.. ");
-						
-						//rank
-						System.out.println("Rank (in words): ");
-						String rank = sc.next();
-						Rank r = null;
-						r = newGame.makeRank(rank);
-						
-						//suit
-						System.out.println("Suit (in words): ");
-						String suit = sc.next();
-						Suit s = null;
-						s = newGame.makeSuit(suit);
-						
-						if(newGame.cardExists(r, s)) {
-							c = new Card(r, s);
-							if(newGame.getYourHand().contains(c)) {
-								has = true;
-								break;
-							}
-							else {
-								System.out.println("There is no such card in your hand. Please input one that is in your hand.");
-							}
-						}
-						else {
-							System.out.println("Please input a valid card");
-						}
-					}
-					
 					//user's turn
-					boolean turn = true;
-					while(turn) {
-						turn = newGame.userAsk(c);
+					boolean userTurn = true;
+					Card c = null;
+					while(userTurn) {
+						c = null;
+						while(c == null) {
+							System.out.println("Choose a card to ask for.. ");
+						
+							//rank
+							System.out.println("Rank (in words): ");
+							String rank = sc.next();
+						
+							//suit
+							System.out.println("Suit (in words): ");
+							String suit = sc.next();
+						
+							c = newGame.newCardInput(rank, suit);
+						}
+						userTurn = newGame.userAsk(c);
 					}
 					
 					//opponent's turn
-					turn = true;
+					boolean turn = true;
 					while(turn) {
 						turn = newGame.opponentAsk();
 					}
@@ -89,42 +72,31 @@ public class UserInterface {
 			}
 			
 			while(newGame.getYourHand().getLength() != 0 && newGame.getOpponentHand().getLength() != 0) {
-				boolean has = false;
+				boolean userTurn = false;
 				Card c = null;
-				while(!has) {
-					System.out.println("\nChoose a card to ask for.. ");						
-					//rank
-					System.out.println("Rank (in words): ");
-					String rank = sc.next();
-					Rank r = null;
-					r = newGame.makeRank(rank);
-						
-					//suit
-					System.out.println("Suit (in words): ");
-					String suit = sc.next();
-					Suit s = null;
-					s = newGame.makeSuit(suit);
-						
-					if(newGame.cardExists(r, s)) {
-						c = new Card(r, s);
-						if(newGame.getYourHand().contains(c)) {
-							has = true;
-							break;
-						}
-						else {
-							System.out.println("There is no such card in your hand. Please input one that is in your hand.");
-						}
+				while(userTurn && newGame.getYourHand().getLength() != 0) {
+					c = null;
+					while(c == null) {
+						System.out.println("Choose a card to ask for.. ");
+					
+						//rank
+						System.out.println("Rank (in words): ");
+						String rank = sc.next();
+					
+						//suit
+						System.out.println("Suit (in words): ");
+						String suit = sc.next();
+					
+						c = newGame.newCardInput(rank, suit);
 					}
-					else {
-						System.out.println("Please input a valid card");
-					}
+					userTurn = newGame.userAsk(c);
 				}
 					
-				//user's turn
-				newGame.userAsk(c);
-					
 				//opponent's turn
-				newGame.opponentAsk();
+				boolean turn = true;
+				while(turn && newGame.getYourHand().getLength() != 0) {
+					turn = newGame.opponentAsk();
+				}
 			}
 			
 			//ending game

@@ -108,7 +108,7 @@ public class GoFish {
 	}
 	
 	public boolean opponentAsk() {
-		int r = (int) (Math.random()* opponentHand.getLength()) + 1;
+		int r = (int) (Math.random()* opponentHand.getLength());
 		Card c = opponentHand.getEntry(r);
 		System.out.println("\n" + c.getRank() + ", " + c.getSuit() + " was asked for.");
 		if(yourHand.hasRank(c)) {
@@ -216,6 +216,29 @@ public class GoFish {
 				break;
 		}
 		return s;
+	}
+	
+	public Card newCardInput(String rank, String suit) {
+		Card c = null;
+			Rank r = null;
+			r = makeRank(rank);
+			
+			Suit s = null;
+			s = makeSuit(suit);
+			
+			if(cardExists(r, s)) {
+				c = new Card(r, s);
+				if(getYourHand().contains(c)) {
+					return c;
+				}
+				else {
+					System.out.println("There is no such card in your hand. Please input one that is in your hand.");
+				}
+			}
+			else {
+				System.out.println("Please input a valid card");
+			}
+		return c;
 	}
 
 }
